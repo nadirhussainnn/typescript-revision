@@ -19,6 +19,18 @@ let x='hello'
 x=1             //Error
 
 
+
+/*****
+    
+Permitive types
+-string
+-number
+-boolean
+-undefined
+-null
+
+ */
+
 /*******
     Important topics
 
@@ -152,18 +164,118 @@ enum Direction {
 
 now Direction.North,Direction.South, Direction.East,Direction.West are equal to 7 8 9 10 resp
 
+10. Object types in TS
+
+let aPerson: {name: string, age: number};
+Then
+aPerson = {name: 'Aisle Nevertell', age: "wouldn't you like to know"}; // Type error: age property has the wrong type.
+aPerson = {name: 'Kushim', yearsOld: 5000}; // Type error: no age property. 
+aPerson = {name: 'User McCodecad', age: 22}; // Valid code. 
+
+Incase of functions
+function sayHappy(name, age){}  //name and age are descriptive variables, but
+function sayHappy(personObj){}  //personObj is not descriptive , we don't know if it is object? what properties it has. So TS can help
+
+
+11. Type Aliases
+
+1.
+type Coord=[number, number, string, number, number, string]
+
+let codecademyCoordinates: Coord = [40, 43.2, 'N', 73, 59.8, 'W'];
+let bermudaTCoordinates: Coord = [25, 0 , 'N' , 71, 0, 'W'];
+
+2. 
+type Person = { name: string, age: number };
+let aCompany: {
+  companyName: string, 
+  boss: Person, 
+  employees: Person[], 
+  employeeOfTheMonth: Person,  
+  moneyEarned: number
+};
+
+
+
+12. Generic Types - Very USEFUL
+
+type Human = {name: string, job: string};
+type Dog = {name: string, tailWagSpeed: number};
+
+type Family<T> = {
+  parents: [T, T], mate: T, children: T[]
+};
+//Do not change the code above this line.
+
+//Provide type annotations for the variables below:
+let theFamily :Family<number>= {
+  parents: [3, 4], mate: 9, children: [5, 30, 121]
+};
+
+let someFamily: Family<boolean> = {
+  parents: [true, true], mate: false, 
+  children: [false, false, true, true]
+};
+
+let aFamily:Family<Human> = {
+  parents: [
+    {name: 'Mom', job: 'software engineer'},
+    {name: 'Dad', job: 'coding engineer'}
+  ],
+  mate: {name: 'Matesky', job: 'engineering coder'},
+  children: [{name: 'Babesky', job: 'none'}]
+};
+
+let anotherFamily:Family<Dog> = {
+  parents: [
+    {name: 'Momo', tailWagSpeed: 3},
+    {name: 'Dado', tailWagSpeed: 100}
+  ],
+  mate: {name: 'Cheems', tailWagSpeed: 7},
+  children: [
+    {name: 'Puppin', tailWagSpeed: 0.001},
+    {name: 'Puppenaut', tailWagSpeed: 0.0001},
+    {name: 'Puppenator', tailWagSpeed: 0.01}
+  ]
+};
+
+13. Generic functions
+
+JS function
+
+function getFilledArray(value, n) {
+  return Array(n).fill(value);
+}
+Well, we run into a problem when we try to specify the function’s return type. We know it should be an array of whatever
+value‘s type is—do we have to write a separate type annotation for every type of value? Nope
+
+With TS
+function getFilledArray<T>(value: T, n: number): T[] {
+  return Array(n).fill(value);
+}
+The above code tells TypeScript to make sure that value and the returned array have the same type T. 
+When the function is invoked, we will provide T‘s value. For example, we can invoke the function using getFilledArray<string>('cheese', 3), 
+which sets T equal to string. This still evaluates to ['cheese', 'cheese', 'cheese']
+
+
+14. Unions
+We may need to define variable between less specific and highest specific level. exp: between any and other type like string, number
+We want to store employeeId, that can be number or string. We could use anytpe, but it is better to specify types when they are more than one. So union
+
+let ID: string | number;
+ 
+// number
+ID = 1;
+ 
+// or string
+ID = '001';
+
+function getMarginLeft(margin: string | number) {
+  return { 'marginLeft': margin };
+}
+
+
     7. interfaces
 
 
 **********/
-
-/*****
-    
-permitive types
--string
--number
--boolean
--undefined
--null
-
- */
